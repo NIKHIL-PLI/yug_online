@@ -552,8 +552,8 @@
         <h2 class="section-title">📝 निःशुल्क सहायता हेतु फॉर्म भरें</h2>
         <div class="help-form">
             <form id="assistanceForm"
-      action="https://yug-online.app.n8n.cloud/webhook-test/yug-pli-form"
-      method="POST">
+action="https://yug-online.app.n8n.cloud/webhook/yug-pli-form"
+method="POST">
 
     <div class="form-grid">
 
@@ -760,16 +760,36 @@
             });
 
             // AGE auto calculate from DOB
-            const dobInput = document.getElementById('dob');
-            const ageField = document.getElementById('age');
-            dobInput.addEventListener('change', function() {
-                if (!this.value) return;
-                let birthDate = new Date(this.value);
-                let today = new Date();
-                let age = today.getFullYear() - birthDate.getFullYear();
-                let m = today.getMonth() - birthDate.getMonth();
-                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
-                ageField.value = (age > 0) ? age + ' वर्ष' : '--';
+            // AGE auto calculate from DOB (FIXED VERSION)
+document.addEventListener("DOMContentLoaded", function () {
+
+    const dobInput = document.getElementById("dob");
+    const ageField = document.getElementById("age");
+
+    if (dobInput) {
+        dobInput.addEventListener("change", function () {
+
+            if (!this.value) {
+                ageField.value = "";
+                return;
+            }
+
+            const birthDate = new Date(this.value);
+            const today = new Date();
+
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+
+            if (monthDiff < 0 || 
+               (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            ageField.value = age > 0 ? age + " वर्ष" : "";
+        });
+    }
+
+});
             });
 
             // FORM submission (mock n8n)
@@ -834,5 +854,6 @@ form.addEventListener('submit', async function(e) {
 </body>
 
 </html>
+
 
 
