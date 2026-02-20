@@ -551,21 +551,57 @@
     <div class="container" id="form">
         <h2 class="section-title">📝 निःशुल्क सहायता हेतु फॉर्म भरें</h2>
         <div class="help-form">
-            <form id="assistanceForm">
-                <div class="form-grid">
-                    <div class="form-group"><label>पूरा नाम *</label><input type="text" id="fullName" required placeholder="जैसे: राम कुमार"></div>
-                    <div class="form-group"><label>ईमेल आईडी *</label><input type="email" id="email" required placeholder="example@domain.com"></div>
-                    <div class="form-group"><label>मोबाइल नंबर *</label><input type="tel" id="mobile" pattern="[0-9]{10}" maxlength="10" required placeholder="9876543210"></div>
-                    <div class="form-group"><label>जन्म तिथि *</label><input type="date" id="dob" required></div>
-                    <div class="form-group"><label>आयु (स्वतः गणना)</label><input type="text" id="age" readonly placeholder="--"></div>
-                    <div class="form-group" style="grid-column: span 2;"><label>पूरा पता *</label><textarea id="address" rows="2" required placeholder="गली/शहर/पिन..."></textarea></div>
-                </div>
-                <div style="text-align: center;">
-                    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> सहायता प्राप्त करें</button>
-                </div>
-                <div id="formSuccess" class="success-message"></div>
-                <div style="text-align: center; margin-top: 15px; color: #006600;">हम 24 घंटे में संपर्क करेंगे। पुष्टि ईमेल भी भेजा जाएगा।</div>
-            </form>
+            <form id="assistanceForm"
+      action="https://yug-online.app.n8n.cloud/webhook-test/yug-pli-form"
+      method="POST">
+
+    <div class="form-grid">
+
+        <div class="form-group">
+            <label>पूरा नाम *</label>
+            <input type="text" id="fullName" name="name" required placeholder="जैसे: राम कुमार">
+        </div>
+
+        <div class="form-group">
+            <label>ईमेल आईडी *</label>
+            <input type="email" id="email" name="email" required placeholder="example@domain.com">
+        </div>
+
+        <div class="form-group">
+            <label>मोबाइल नंबर *</label>
+            <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" maxlength="10" required placeholder="9876543210">
+        </div>
+
+        <div class="form-group">
+            <label>जन्म तिथि *</label>
+            <input type="date" id="dob" name="dob" required>
+        </div>
+
+        <div class="form-group">
+            <label>आयु (स्वतः गणना)</label>
+            <input type="text" id="age" name="age" readonly placeholder="--">
+        </div>
+
+        <div class="form-group" style="grid-column: span 2;">
+            <label>पूरा पता *</label>
+            <textarea id="address" name="address" rows="2" required placeholder="गली/शहर/पिन..."></textarea>
+        </div>
+
+    </div>
+
+    <div style="text-align: center;">
+        <button type="submit" class="submit-btn">
+            <i class="fas fa-paper-plane"></i> सहायता प्राप्त करें
+        </button>
+    </div>
+
+    <div id="formSuccess" class="success-message"></div>
+
+    <div style="text-align: center; margin-top: 15px; color: #006600;">
+        हम 24 घंटे में संपर्क करेंगे। पुष्टि ईमेल भी भेजा जाएगा।
+    </div>
+
+</form>
         </div>
     </div>
 
@@ -791,4 +827,5 @@
         })();
     </script>
 </body>
+
 </html>
