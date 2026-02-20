@@ -755,8 +755,7 @@ body {
             </form>
         </div>
     </div>
-
-    <!-- FAQ SECTION with smooth accordion -->
+<!-- FAQ SECTION with smooth accordion -->
     <div class="container faq-section">
         <h2 class="section-title">❓ अक्सर पूछे जाने वाले प्रश्न (FAQ)</h2>
         <div class="faq-list">
@@ -803,8 +802,9 @@ body {
     <a href="https://wa.me/917558393567" class="whatsapp-float" target="_blank" title="WhatsApp चैट">
         <i class="fab fa-whatsapp"></i>
     </a>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     // ==================== PLI DATA (EXACT) ====================
     const pliData = {
         "19": {"60":{"premium":1750,"maturity":3132000},"58":{"premium":1750,"maturity":3028000},"55":{"premium":1950,"maturity":2872000},"50":{"premium":2350,"maturity":2612000},"45":{"premium":2950,"maturity":2352000},"40":{"premium":3750,"maturity":2092000},"35":{"premium":5150,"maturity":1832000}},
@@ -938,7 +938,23 @@ body {
     const form = document.getElementById('assistanceForm');
     const successMsg = document.getElementById('formSuccess');
 
-    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const mobile = document.getElementById('mobile').value.trim();
+        const dob = document.getElementById('dob').value;
+        const address = document.getElementById('address').value.trim();
+
+        if (!name || !email || !mobile || !dob || !address) {
+            alert('कृपया सभी आवश्यक फील्ड भरें');
+            return;
+        }
+        if (mobile.length !== 10 || !/^\d+$/.test(mobile)) {
+            alert('मोबाइल नंबर 10 अंकों का होना चाहिए');
+            return;
+        }
 
         const formData = {
             fullName: name,
@@ -969,8 +985,7 @@ body {
             alert('कुछ त्रुटि हुई, कृपया बाद में प्रयास करें।');
         });
     });
-});
-    document.addEventListener('DOMContentLoaded', function() {
+
     // ==================== SMOOTH SCROLL REVEAL (IntersectionObserver) ====================
     const revealElements = document.querySelectorAll('.hero-section, .cards-grid, .calculator-panel, .guide-box, .help-form, .faq-section, .official-link, .footer');
     
@@ -978,7 +993,6 @@ body {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('reveal', 'active');
-                // optionally unobserve after reveal
                 observer.unobserve(entry.target);
             }
         });
@@ -995,7 +1009,6 @@ body {
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
         question.addEventListener('click', () => {
-            // close others (optional, but keeps one open)
             faqItems.forEach(other => {
                 if (other !== item && other.classList.contains('active')) {
                     other.classList.remove('active');
@@ -1017,15 +1030,6 @@ body {
         }
     });
 
-    // ==================== RIPPLE EFFECT (manual trigger for dynamic elements) ====================
-    // already handled by CSS .ripple:active:after, but we can add a more robust JS ripple if needed.
-    // Optional: remove any existing inline ripples.
-
-    // ==================== FLOATING LABELS INIT (ensure placeholder is set) ====================
-    // All inputs with floating labels have placeholder=" ", so CSS works.
-
-    // ==================== BUTTON HOVER SOUND? no, just visual.
-
     // ==================== SMOOTH SCROLL FOR ANCHOR LINKS ====================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -1037,18 +1041,9 @@ body {
         });
     });
 
-    // ==================== ADD GLASS CARD HOVER EFFECTS (already in CSS) ====================
-
-    // ==================== DYNAMIC BACKGROUND ANIMATION (CSS handles) ====================
-
-    // ==================== WHATSAPP BUTTON PULSE (already in CSS) ====================
-
-    // ==================== LOADING STATE FOR CALCULATOR? not needed.
-
     console.log('Modern UI enhancements loaded');
 });
 </script>
 </body>
-    </html>
-
-
+</html>
+    
