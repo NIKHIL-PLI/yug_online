@@ -938,23 +938,7 @@ body {
     const form = document.getElementById('assistanceForm');
     const successMsg = document.getElementById('formSuccess');
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault(); // keep single-page experience
-
-        const name = document.getElementById('fullName').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const mobile = document.getElementById('mobile').value.trim();
-        const dob = document.getElementById('dob').value;
-        const address = document.getElementById('address').value.trim();
-
-        if (!name || !email || !mobile || !dob || !address) {
-            alert('कृपया सभी आवश्यक फील्ड भरें');
-            return;
-        }
-        if (mobile.length !== 10 || !/^\d+$/.test(mobile)) {
-            alert('मोबाइल नंबर 10 अंकों का होना चाहिए');
-            return;
-        }
+    
 
         const formData = {
             fullName: name,
@@ -1066,4 +1050,5 @@ body {
 </script>
 </body>
     </html>
+
 
