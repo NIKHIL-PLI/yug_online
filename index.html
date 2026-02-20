@@ -773,41 +773,46 @@
             });
 
             // FORM submission (mock n8n)
-            const form = document.getElementById('assistanceForm');
-            const successMsg = document.getElementById('formSuccess');
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('fullName').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const mobile = document.getElementById('mobile').value.trim();
-                const dob = document.getElementById('dob').value;
-                const address = document.getElementById('address').value.trim();
-                if (!name || !email || !mobile || !dob || !address) {
-                    alert('कृपया सभी आवश्यक फील्ड भरें');
-                    return;
-                }
-                if (mobile.length !== 10 || !/^\d+$/.test(mobile)) {
-                    alert('मोबाइल नंबर 10 अंकों का होना चाहिए');
-                    return;
-                }
-                const ageValue = ageField.value;
-                const formData = { name, email, mobile, dob, age: ageValue, address, timestamp: new Date().toISOString() };
-                console.log('Form submitted (mock n8n):', formData);
-                // Placeholder fetch for n8n (replace URL later)
-                /*
-                fetch('YOUR_N8N_WEBHOOK_URL', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                }).catch(err => console.warn('webhook error', err));
-                */
-                successMsg.style.display = 'block';
-                successMsg.innerText = '✅ धन्यवाद! 24 घंटे में आपसे संपर्क किया जाएगा। (ईमेल पुष्टि भी भेजी गई)';
-                form.reset();
-                ageField.value = '';
-                setTimeout(() => { successMsg.style.display = 'none'; }, 8000);
-            });
+            <script>
+const form = document.getElementById('assistanceForm');
+const successMsg = document.getElementById('formSuccess');
+const ageField = document.getElementById('age');
 
+form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        mobile: document.getElementById('mobile').value,
+        dob: document.getElementById('dob').value,
+        age: ageField.value,
+        address: document.getElementById('address').value
+    };
+
+    try {
+        const response = await fetch("https://yug-online.app.n8n.cloud/webhook-test/yug-pli-form", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+            successMsg.style.display = "block";
+            successMsg.innerText = "✅ धन्यवाद! 24 घंटे में संपर्क किया जाएगा।";
+            form.reset();
+            ageField.value = "";
+        } else {
+            alert("Server error. Please try again.");
+        }
+    } catch (error) {
+        alert("Connection error.");
+        console.error(error);
+    }
+});
+</script>
             // FAQ accordion
             document.querySelectorAll('.faq-question').forEach(q => {
                 q.addEventListener('click', function() {
@@ -829,3 +834,4 @@
 </body>
 
 </html>
+
